@@ -30,7 +30,6 @@ public class Main {
     private Socket clientSocket;
     private PrintWriter out;
     private BufferedReader in;
-   
 
     private void start(int port) {
         try {
@@ -52,7 +51,7 @@ public class Main {
 
     }
 
-    private  boolean fileProgram() {
+    private boolean fileProgram() {
         String inputLine;
         File f;
         try {
@@ -71,12 +70,12 @@ public class Main {
                     String[] parts = inputLine.split(":");
                     String cabecera = parts[0]; // "[CLI] mensaje:"
                     String mensaje = parts[1]; // nombre de archivo
-                    if ((f = new File(".\\" + mensaje)).exists()) { // si existe el archivo
+                    if ((f = new File("."+File.separator + mensaje)).exists()) { // si existe el archivo
                         System.out.println("[SERVER_INTENTA ENVIAR_ARCHIVO]");
-                       out.println("ok");
+                        out.println("ok");
                         if (sendFile(f)) { // si se envia con exito
                             System.out.println("EXITO: enviando archivo " + f.toString() + "");
-                            
+
                             return true;
                         } else {
                             System.out.println("ERROR: enviando archivo " + f.toString() + "");
@@ -96,12 +95,11 @@ public class Main {
 
         } catch (IOException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        } finally{
-        stop();
+        } finally {
+            stop();
         }
         return false;
     }
-
 
     private void stop() {
         try {
@@ -118,12 +116,8 @@ public class Main {
     public static void main(String[] args) {
         Main m = new Main();
         m.fileProgram();
-   
+
     }
-
-   
-
-   
 
     private boolean sendFile(File f) {
         try {
@@ -152,7 +146,7 @@ public class Main {
                 }
                 bis.close();
                 bos.close();
-               
+
             }
         } catch (Exception e) {
             System.err.println(e);
